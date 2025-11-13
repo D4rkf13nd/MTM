@@ -239,11 +239,15 @@ function sendAnswer(questionIndex) {
     }
     // WORK-IN-PROCESS
     if (correctAnswers[0] === 'work-in-process') {
-        correctAnswers.push('work-in-process (wip)', 'work in process');
+        correctAnswers.push('work-in-process (wip)', 'work in process', 'work in process (wip)');
     }
     // FLUCTUATION INVENTORY
     if (correctAnswers[0] === 'fluctuation inventory') {
         correctAnswers.push('fluctuation inventory (safety stock)');
+    }
+    // TRANSPORTATION INVENTORIES
+    if (correctAnswers[0] === 'transportation inventories') {
+        correctAnswers.push('transportation inventory');
     }
     if (userAnswer !== "") {
         input.disabled = true;
@@ -276,6 +280,7 @@ function sendAnswer(questionIndex) {
     }
 }
 
+// Fix checkAnswers to use alternate answers
 function checkAnswers() {
     let score = 0;
     const questions = document.querySelectorAll('.question-container');
@@ -284,10 +289,42 @@ function checkAnswers() {
         const input = question.querySelector('input[type="text"]');
         const userAnswer = (input ? input.value.trim().toLowerCase() : "");
         const qIdx = quizOrder[index];
-        const correctAnswer = quizData[qIdx].answer.trim().toLowerCase();
+        let correctAnswers = [quizData[qIdx].answer.trim().toLowerCase()];
+        // BALANCE SHEET
+        if (correctAnswers[0] === 'balance sheet') {
+            correctAnswers.push('balance sheets');
+        }
+        // CAPACITY-ASSOCIATED COSTS
+        if (correctAnswers[0] === 'capacity-associated costs') {
+            correctAnswers.push('capacity associated costs', 'capacity associated cost', 'capacity-associated cost');
+        }
+        // MAINTENANCE, REPAIR, AND OPERATING (MRO) SUPPLIES
+        if (correctAnswers[0] === 'maintenance, repair, and operating (mro) supplies') {
+            correctAnswers.push('mro supplies', 'mro');
+        }
+        // MAINTENANCE, REPAIR, AND OPERATING SUPPLIES
+        if (correctAnswers[0] === 'maintenance, repair, and operating supplies') {
+            correctAnswers.push('mro');
+        }
+        // SUPPLY AND DEMAND PATTERNS
+        if (correctAnswers[0] === 'supply and demand patterns') {
+            correctAnswers.push('supply and demand pattern');
+        }
+        // WORK-IN-PROCESS
+        if (correctAnswers[0] === 'work-in-process') {
+            correctAnswers.push('work-in-process (wip)', 'work in process', 'work in process (wip)');
+        }
+        // FLUCTUATION INVENTORY
+        if (correctAnswers[0] === 'fluctuation inventory') {
+            correctAnswers.push('fluctuation inventory (safety stock)');
+        }
+        // TRANSPORTATION INVENTORIES
+        if (correctAnswers[0] === 'transportation inventories') {
+            correctAnswers.push('transportation inventory');
+        }
         input.disabled = true;
         const feedbackEl = document.getElementById(`feedback-${index}`);
-        if (userAnswer === correctAnswer) {
+        if (correctAnswers.includes(userAnswer)) {
             score++;
             feedbackEl.textContent = 'Correct!';
             feedbackEl.style.color = '#2e7d32';
