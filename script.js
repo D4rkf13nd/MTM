@@ -249,6 +249,10 @@ function sendAnswer(questionIndex) {
     if (correctAnswers[0] === 'transportation inventories') {
         correctAnswers.push('transportation inventory');
     }
+    // INVENTORY AND FLOW OF MATERIALS
+    if (correctAnswers[0] === 'inventory and flow of materials') {
+        correctAnswers.push('inventory & flow of materials', 'inventory and flow of material', 'inventory & flow of material');  
+    }
     if (userAnswer !== "") {
         input.disabled = true;
         if (correctAnswers.includes(userAnswer)) {
@@ -322,6 +326,10 @@ function checkAnswers() {
         if (correctAnswers[0] === 'transportation inventories') {
             correctAnswers.push('transportation inventory');
         }
+      // INVENTORY AND FLOW OF MATERIALS
+      if (correctAnswers[0] === 'inventory and flow of materials') {
+        correctAnswers.push('inventory & flow of materials', 'inventory and flow of material', 'inventory & flow of material');
+      }
         input.disabled = true;
         const feedbackEl = document.getElementById(`feedback-${index}`);
         if (correctAnswers.includes(userAnswer)) {
@@ -515,5 +523,5 @@ window.onload = function() {
     quizOrder = Array.from({length: quizData.length}, (_, i) => i);
     shuffleArray(quizOrder);
     currentAnswers = new Array(quizData.length).fill("");
-    createQuiz();
-};
+  createQuiz();
+} ;
