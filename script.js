@@ -25,7 +25,7 @@ const quizData = [
   },
   {
     "question": "What refers to goods that are in the process of being manufactured but are not yet completed?",
-    "answer": "WORK-IN-PROCESS (WIP)"
+    "answer": "WORK-IN-PROCESS"
   },
   {
     "question": "What type of inventory consists of completed products ready for sale or distribution?",
@@ -37,7 +37,7 @@ const quizData = [
   },
   {
     "question": "What items support operations and maintenance but do not become part of the finished product?",
-    "answer": "MAINTENANCE, REPAIR, AND OPERATING SUPPLIES (MRO)"
+    "answer": "MAINTENANCE, REPAIR, AND OPERATING SUPPLIES"
   },
   {
     "question": "What pattern describes a situation where, if supply met demand exactly, there would be little need for inventory?",
@@ -53,7 +53,7 @@ const quizData = [
   },
   {
     "question": "What type of inventory is held to cover random, unpredictable fluctuations in supply and demand?",
-    "answer": "FLUCTUATION INVENTORY (SAFETY STOCK)"
+    "answer": "FLUCTUATION INVENTORY"
   },
   {
     "question": "What type of inventory is created when items are purchased or manufactured in quantities greater than needed immediately?",
@@ -70,10 +70,6 @@ const quizData = [
   {
     "question": "What type of inventory exists because of the time needed to move goods from one location to another?",
     "answer": "TRANSPORTATION INVENTORIES"
-  },
-  {
-    "question": "What are the main objectives of inventory management for a profit-maximizing firm?",
-    "answer": "MAXIMUM CUSTOMER SERVICE, LOW-COST PLANT OPERATION, AND MINIMUM INVENTORY INVESTMENT"
   },
   {
     "question": "What is the ability of a company to satisfy customer needs through the availability of items when needed?",
@@ -129,7 +125,7 @@ const quizData = [
   },
   {
     "question": "What is the primary purpose of a business that increases owners’ equity by making a profit?",
-    "answer": "INCOME (PROFIT)"
+    "answer": "INCOME"
   },
   {
     "question": "What refers to the money received from the sale of goods or services, sometimes in cash or as accounts receivable?",
@@ -219,10 +215,39 @@ function sendAnswer(questionIndex) {
     const feedbackEl = document.getElementById(`feedback-${questionIndex}`);
     const qIdx = quizOrder[questionIndex];
     const userAnswer = input.value.trim().toLowerCase();
-    const correctAnswer = quizData[qIdx].answer.trim().toLowerCase();
+    // Accept multiple correct answers for specific questions
+    let correctAnswers = [quizData[qIdx].answer.trim().toLowerCase()];
+    // BALANCE SHEET
+    if (correctAnswers[0] === 'balance sheet') {
+        correctAnswers.push('balance sheets');
+    }
+    // CAPACITY-ASSOCIATED COSTS
+    if (correctAnswers[0] === 'capacity-associated costs') {
+        correctAnswers.push('capacity associated costs', 'capacity associated cost', 'capacity-associated cost');
+    }
+    // MAINTENANCE, REPAIR, AND OPERATING (MRO) SUPPLIES
+    if (correctAnswers[0] === 'maintenance, repair, and operating (mro) supplies') {
+        correctAnswers.push('mro supplies', 'mro');
+    }
+    // MAINTENANCE, REPAIR, AND OPERATING SUPPLIES
+    if (correctAnswers[0] === 'maintenance, repair, and operating supplies') {
+        correctAnswers.push('mro');
+    }
+    // SUPPLY AND DEMAND PATTERNS
+    if (correctAnswers[0] === 'supply and demand patterns') {
+        correctAnswers.push('supply and demand pattern');
+    }
+    // WORK-IN-PROCESS
+    if (correctAnswers[0] === 'work-in-process') {
+        correctAnswers.push('work-in-process (wip)', 'work in process');
+    }
+    // FLUCTUATION INVENTORY
+    if (correctAnswers[0] === 'fluctuation inventory') {
+        correctAnswers.push('fluctuation inventory (safety stock)');
+    }
     if (userAnswer !== "") {
         input.disabled = true;
-        if (userAnswer === correctAnswer) {
+        if (correctAnswers.includes(userAnswer)) {
             feedbackEl.textContent = 'Correct!';
             feedbackEl.style.color = '#2e7d32';
             input.classList.add('correct');
